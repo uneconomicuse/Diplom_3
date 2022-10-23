@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class SignInObject {
     WebDriver driver;
@@ -11,6 +12,7 @@ public class SignInObject {
     public SignInObject(WebDriver driver) {
         this.driver = driver;
         driver.get(pageUrl);
+        PageFactory.initElements(driver, this);
     }
 
     private final String pageUrl = "https://stellarburgers.nomoreparties.site/";
@@ -77,11 +79,6 @@ public class SignInObject {
         return this;
     }
 
-    @Step("Проверить видимость элемента")
-    public boolean isDisplayed(WebElement successElem) {
-        boolean text = successElem.isDisplayed();
-        return text;
-    }
 
     public String getPageUrl() {
         return pageUrl;

@@ -1,6 +1,8 @@
 import io.qameta.allure.junit4.DisplayName;
 import org.example.BaseTest;
+import org.example.objects.AssertsObject;
 import org.example.objects.ConstructorObject;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.support.PageFactory;
 
@@ -8,40 +10,46 @@ import static org.junit.Assert.assertTrue;
 
 public class ConstructorTest extends BaseTest {
 
+    private AssertsObject assertsObject;
+    private ConstructorObject constructorObject;
+
+    @Before
+    public void service() {
+        constructorObject = new ConstructorObject(driver);
+        assertsObject = new AssertsObject(driver);
+    }
+
     @Test
     @DisplayName("Проверка перехода к разделу «Соусы»")
     public void goToSauce() {
-        ConstructorObject constructorObject = new ConstructorObject(driver);
-        PageFactory.initElements(driver, constructorObject);
-
         constructorObject
                 .clickButton(constructorObject.getSauceButton());
 
-        assertTrue(constructorObject.isSauceVisible());
+        boolean result = assertsObject.isDisplayed(constructorObject.getSauceTab());
+
+        assertTrue(result);
     }
 
     @Test
-    @DisplayName("Проверка перехода к разделу «Соусы»")
+    @DisplayName("Проверка перехода к разделу «Начинки»")
     public void goToFilling() {
-        ConstructorObject constructorObject = new ConstructorObject(driver);
-        PageFactory.initElements(driver, constructorObject);
-
         constructorObject
                 .clickButton(constructorObject.getFillingButton());
 
-        assertTrue(constructorObject.isFillingVisible());
+        boolean result = assertsObject.isDisplayed(constructorObject.getFillingTab());
+
+        assertTrue(result);
     }
 
     @Test
-    @DisplayName("Проверка перехода к разделу «Соусы»")
+    @DisplayName("Проверка перехода к разделу «Булки»")
     public void goToBun() {
-        ConstructorObject constructorObject = new ConstructorObject(driver);
-        PageFactory.initElements(driver, constructorObject);
-
         constructorObject
                 .clickButton(constructorObject.getSauceButton())
                 .clickButton(constructorObject.getBunButton());
 
-        assertTrue(constructorObject.isBunVisible());
+        boolean result = assertsObject.isDisplayed(constructorObject.getBunsTab());
+
+        assertTrue(result);
     }
 }

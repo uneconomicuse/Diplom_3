@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class RegisterObject {
     WebDriver driver;
@@ -11,6 +12,7 @@ public class RegisterObject {
     public RegisterObject(WebDriver driver) {
         this.driver = driver;
         driver.get(pageUrl);
+        PageFactory.initElements(driver, this);
     }
 
     public final String pageUrl = "https://stellarburgers.nomoreparties.site/";

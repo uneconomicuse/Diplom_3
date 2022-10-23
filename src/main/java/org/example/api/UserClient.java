@@ -19,10 +19,20 @@ public class UserClient extends BaseClient {
                 .assertThat();
     }
 
-    @Step("Удалить пользователя")
-    public ValidatableResponse delete(String userId) {
+    @Step("Войти в личный кабинет курьера")
+    public ValidatableResponse login(UserCredentials creds) {
         return getSpec()
-                .header("Authorization", userId)
+                .body(creds)
+                .when()
+                .post(LOGIN)
+                .then().log().all()
+                .assertThat();
+    }
+
+    @Step("Удалить пользователя")
+    public ValidatableResponse delete(String token) {
+        return getSpec()
+                .header("Authorization", token)
                 .when()
                 .delete(USER)
                 .then().log().all()
